@@ -5,3 +5,11 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 table {
     width: 100%;
 }
+
+.example-form {
+    width: 100%;
+  }
+  
+  .example-full-width {
+    width: 100%;
+  }

@@ -13,6 +13,8 @@ import { MedicoComponent } from './pages/medico/medico.component';
 import { ReporteComponent } from './pages/reporte/reporte.component';
 import { Not403Component } from './pages/not403/not403.component';
 import { HttpClientModule } from '@angular/common/http';
+import { PacienteEditarComponent } from './pages/paciente/paciente-editar/paciente-editar.component';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -25,13 +27,16 @@ import { HttpClientModule } from '@angular/common/http';
     ExamenComponent,
     MedicoComponent,
     ReporteComponent,
-    Not403Component
+    Not403Component,
+    PacienteEditarComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     MaterialModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

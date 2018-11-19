@@ -1,0 +1,43 @@
+<form class="example-form" [formGroup]="pacienteForm" (ngSubmit)="onSubmit()">
+
+  <mat-form-field class="example-full-width">
+    <input matInput placeholder="Nombres" formControlName="nombres"/>
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <input matInput placeholder="Apellidos" formControlName="apellidos"/>
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <input matInput [matDatepicker]="picker" placeholder="Fecha de Nacimiento" formControlName="fechaNacimiento"/>
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <mat-select placeholder="Tipo de Documento" formControlName="tipoDocumento">
+      <mat-option *ngFor="let tipo of tipoDocumentos" [value]="tipo.idTipoDocumento" >
+        {{tipo.nombre}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <input matInput placeholder="Número de Documento" formControlName="numeroDocumento"/>
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <input matInput placeholder="Dirección" formControlName="direccion"/>
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <input matInput placeholder="Email" formControlName="email"/>
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <input matInput placeholder="Telefono" formControlName="telefono"/>
+  </mat-form-field>
+  
+  <button type="submit" mat-raised-button color="primary">Guardar</button>
+
+</form>

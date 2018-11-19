@@ -14,4 +14,8 @@ export class PacienteService {
   listar(){
     return this.http.get<Paciente[]>(this.url);
   }
+
+  guardar(paciente:Paciente){
+    return this.http.post<Paciente>(this.url, paciente);
+  }
 }
