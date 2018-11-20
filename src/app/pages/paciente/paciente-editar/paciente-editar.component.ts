@@ -4,6 +4,7 @@ import { TipoDocumento } from 'src/app/_model/tipo-documento';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Paciente } from 'src/app/_model/paciente';
 import { PacienteService } from 'src/app/_service/paciente.service';
+import { ActivatedRoute, Params } from '@angular/router';
 
 @Component({
   selector: 'app-paciente-editar',
@@ -15,8 +16,12 @@ export class PacienteEditarComponent implements OnInit {
   tipoDocumentos: TipoDocumento[];
   pacienteForm: FormGroup;
   paciente: Paciente;
+  edicion:boolean = false;
+  id: number;
 
-  constructor(private tipoDocumentoService: TipoDocumentoService, private pacienteService: PacienteService) { }
+  constructor(private tipoDocumentoService: TipoDocumentoService, 
+              private pacienteService: PacienteService,
+              private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.tipoDocumentoService.listar().subscribe(data => 
@@ -25,22 +30,43 @@ export class PacienteEditarComponent implements OnInit {
         this.tipoDocumentos = data;
       }
     );
-    this.pacienteForm =  this.createFormGroup();
-  }
+    //this.pacienteForm =  this.createFormGroup(null);
 
-  createFormGroup(){
-    return new FormGroup(
+    this.route.params.subscribe((params: Params) => 
       {
-        nombres: new FormControl(),
-        apellidos: new FormControl(),
-        fechaNacimiento: new FormControl(),
-        tipoDocumento: new FormControl(),
-        numeroDocumento: new FormControl(),
-        direccion: new FormControl(),
-        email: new FormControl(),
-        telefono: new FormControl()
+        this.id = params['id'];
+        this.edicion = this.id != null;
+        this.initForm();
       }
     );
+  }
+
+  createFormGroup(paciente:Paciente){
+    return new FormGroup(
+      {
+        nombres: new FormControl(paciente!=null?paciente.nombres:null),
+        apellidos: new FormControl(paciente!=null?paciente.apellidos:null),
+        fechaNacimiento: new FormControl(paciente!=null?paciente.fechaNaciemiento:null),
+        tipoDocumento: new FormControl(paciente!=null?paciente.tipoDocumento.idTipoDocumento:null),
+        numeroDocumento: new FormControl(paciente!=null?paciente.numeroDocumento:null),
+        direccion: new FormControl(paciente!=null?paciente.direccion:null),
+        email: new FormControl(paciente!=null?paciente.email:null),
+        telefono: new FormControl(paciente!=null?paciente.telefono:null)
+      }
+    );
+  }
+
+  initForm(){
+    if(this.edicion){
+      this.pacienteService.obtenerPorId(this.id).subscribe(data => 
+        {
+          console.log(data);
+          this.pacienteForm = this.createFormGroup(data);
+        }  
+      );
+    }else{
+      this.pacienteForm = this.createFormGroup(null);
+    }
   }
 
   onSubmit(){
@@ -49,9 +75,9 @@ export class PacienteEditarComponent implements OnInit {
     this.paciente.apellidos = this.pacienteForm.value.apellidos;
     //this.paciente.fechaNaciemiento = this.pacienteForm.value.fechaNaciemiento;
     let tipoDocumento:TipoDocumento = new TipoDocumento();
-    tipoDocumento.idTipoDocuemnto = this.pacienteForm.value.tipoDocumento;
+    tipoDocumento.idTipoDocumento = this.pacienteForm.value.tipoDocumento;
     this.paciente.tipoDocumento = tipoDocumento;
-    this.paciente.numeroDocuemnto = this.pacienteForm.value.numeroDocumento;
+    this.paciente.numeroDocumento = this.pacienteForm.value.numeroDocumento;
     this.paciente.direccion = this.pacienteForm.value.direccion;
     this.paciente.telefono  = this.pacienteForm.value.telefono;
     this.paciente.email = this.pacienteForm.value.email;

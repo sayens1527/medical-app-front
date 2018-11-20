@@ -18,4 +18,8 @@ export class PacienteService {
   guardar(paciente:Paciente){
     return this.http.post<Paciente>(this.url, paciente);
   }
+
+  obtenerPorId(id:number){
+    return this.http.get<Paciente>(`${this.url}/${id}`);
+  }
 }

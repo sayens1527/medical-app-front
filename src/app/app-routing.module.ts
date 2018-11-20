@@ -5,7 +5,8 @@ import { PacienteEditarComponent } from './pages/paciente/paciente-editar/pacien
 
 const routes: Routes = [
   {path:"paciente", component: PacienteComponent, children:[
-    {path:"editar", component:PacienteEditarComponent}
+    {path:"editar/:id", component:PacienteEditarComponent},
+    {path:"nuevo", component:PacienteEditarComponent}
   ]}
 ];
 

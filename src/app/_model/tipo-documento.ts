@@ -1,9 +1,9 @@
 export class TipoDocumento {
-    idTipoDocuemnto: string;
+    idTipoDocumento: string;
     nombre: string;
     descripcion: string;
 
-    TipoDocumento(idTipoDocuemnto: string){
-        this.idTipoDocuemnto =idTipoDocuemnto;
+    TipoDocumento(idTipoDocumento: string){
+        this.idTipoDocumento =idTipoDocumento;
     }
 }

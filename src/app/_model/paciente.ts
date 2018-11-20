@@ -6,7 +6,7 @@ export class Paciente {
     apellidos: string;
     direccion: string;
     email: string;
-    numeroDocuemnto: string;
+    numeroDocumento: string;
     tipoDocumento: TipoDocumento;
     fechaNaciemiento: string;
     telefono: string;
